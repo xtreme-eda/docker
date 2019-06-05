@@ -1,0 +1,17 @@
+FROM ycradarcy/ubuntu-16.04:questa-2019.2-install-noclean
+
+# To override from CLI:
+#  --build-arg USER=<user-name>
+#  --build-arg USERID=<uid>
+ARG USER
+ARG USERID
+ENV USER   ${USER:-dponcsak}
+ENV USERID ${USERID:-1061}
+
+# Create a user account with the same UID as in the parent
+RUN useradd -m --uid $USERID -U $USER
+
+# After RUN command so RUN executes as root, container executes as USER
+USER $USER:$USERID
+
+CMD ["/bin/bash"]

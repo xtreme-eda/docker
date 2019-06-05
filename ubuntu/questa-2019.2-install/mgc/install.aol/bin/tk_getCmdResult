@@ -1,0 +1,9 @@
+# Copyright Mentor Graphics Corporation 2007-2017. All Rights Reserved.
+#
+# call this script directly after calling any toolkit dialog or module
+#
+# ======================================================================
+wd=$( cd $(dirname $0) ; pwd -P )
+export wd
+TK_CMD_RESULT=`"$wd/msi_cmd" -tk_getCmdResult`
+export TK_CMD_RESULT

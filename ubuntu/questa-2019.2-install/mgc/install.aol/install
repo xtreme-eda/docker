@@ -1,0 +1,221 @@
+#!/bin/sh
+# 
+#  Copyright (c) 2001-2016 Mentor Graphics Corporation All Rights Reserved
+#  ______________________________________________________________________
+#
+
+jre_required="1.8.0"
+jre_required_ira="1.7.0"
+
+#set the current working directory
+if [ "$MSI_START_DIR" = "" ]; then
+MSI_START_DIR=`pwd`
+export MSI_START_DIR
+fi
+
+# Added for IIL...should not hurt other UNIX'es.
+LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/X11R6/lib; export LD_LIBRARY_PATH
+
+# Find the install directory
+if [ -f "$0" ] ; then
+   install_dir=`dirname "$0"`
+   cd "$install_dir"
+   if [ $? != 0 ] ; then
+      echo "ERROR - $0:"
+      echo "Unable to 'cd' to installation directory at: $install_dir"
+      exit 1
+   fi
+else
+   echo "ERROR - $0:"
+   echo "$0 must be called with a '/' rooted or relative path"
+   exit 1
+fi
+
+# Find if Java 7 supported
+# Get OS version
+osver=`uname -r`
+
+# Check OS version
+if [ ${osver} = "5.8" ]; then
+	echo "Solaris 8 is not supported."
+	exit 1
+elif [ ${osver} = "5.9" ]; then
+	echo "Solaris 9 is not supported."
+	exit 1
+fi
+
+# Find if Java 7 supported on Linux
+if [ `command -v lsb_release` ]; then
+	# Get OS version
+	osver=`lsb_release -sr`
+
+	# Check OS version
+	if [ ${osver} = "3" ]; then
+		echo "Linux 3 is not supported."
+		exit 1
+	elif [ ${osver} = "4" ]; then
+		echo "Linux 4 is not supported."
+		exit 1
+	fi
+fi
+
+# Find if Java 7 supported on AIX
+if [ `command -v oslevel` ]; then
+	# Get OS version
+	osver=`oslevel | cut -c 1-3`
+
+	# Check OS version
+	if [ ${osver} = "5.3" ]; then
+		echo "AIX 5.3 is not supported."
+		exit 1
+	fi
+fi
+
+# Find the location of the java program
+if [ -f JRE/bin/java ] ; then
+   JAVA=JRE/bin/java
+   java_path=$install_dir/$JAVA
+elif [ -f jre/bin/java ] ; then
+   JAVA=jre/bin/java
+   java_path=$install_dir/$JAVA
+elif [ -f JRE/sdk/jre/bin/java ] ; then
+   JAVA=JRE/sdk/jre/bin/java
+   java_path=$install_dir/$JAVA
+elif [ -f JRE/jre/bin/java ] ; then
+   JAVA=JRE/jre/bin/java
+   java_path=$install_dir/$JAVA
+   jre_required=$jre_required_ira
+else
+   JAVA=`which java`
+   java_path=$JAVA
+fi
+
+# Find if SELinux is enabled, we have a 32-bit JRE, and we are using 64-bit Linux.
+if [ -f "/usr/sbin/getenforce" ] && [ "`file ${JAVA} | grep 32-bit`" ] && [ "`uname -m | grep 64`" ]; then
+    senabled=`/usr/sbin/getenforce`
+	if [ "${senabled}" = "Enforcing" ]; then
+		# If SELinux is on, find out if we can turn it off.
+		if [ "$(id -u)" = "0" ]; then
+			/usr/sbin/setenforce 0
+			seoff=OFF
+			echo "SELinux has been disabled temporarily for compatibility."
+		else
+			echo "WARNING: SELinux is enabled."
+			echo "    It is recommended that root user disables SELinux before installing."
+		fi		
+	fi
+fi
+
+# Find the version of the JRE
+#jre_found=`$JAVA -version 2>&1 | head -1 | cut -f3 -d\ | sed -e 's/"//g' | awk '{print substr($0, 1, 5)}'`
+# Get -version output first in case there is an error to be displayed to the user. (dts0100364460)
+java_version=`$JAVA -version 2>&1`
+jre_found=`echo "$java_version" | head -1 | cut -f3 -d\ | sed -e 's/"//g' | awk '{print substr($0, 1, 5)}'`
+
+# Make sure we have a valid version
+if [ "$jre_required" = "$jre_found" ]; then
+   bJREIsOK=TRUE
+else
+   bJREIsOK=`echo "$jre_found"  |  sed -ne "s/.*$jre_required.*/TRUE/p"`
+fi
+
+if  [ "$bJREIsOK" = "TRUE" ]; then
+   # If invoked with the silent switch, don't display the version info. We will leave the warning message as it is.
+   bSilent=`echo $*  |  sed -e "s/.*-silent.*/TRUE/g"`
+
+   if [ "$bSilent" != "TRUE" ]; then
+      echo "Using Java version $jre_found"
+   fi    
+else
+   echo ""
+   echo "*** Warning with: $0"
+   echo "The version of $java_path may not be correct!"
+   echo "...Required: \"$jre_required\""
+   echo "...Found: $java_version"
+   echo "...Please check that you have correctly installed the Mentor Install program that contains the Java Runtime Environment."
+fi
+   
+
+# Start the control panel
+arguments=$*
+
+# Check to see if the user provided the -noexecute option as one of the command line argument. if so bail out, don't invoke MSI.
+while [ $# -gt 0 ];
+do
+   newArgs=`echo $newArgs "$1"`
+   
+   if [ "$1" = "-src" ] || [ "$1" = "-tgt" ] || [ "$1" = "-quicksource" ] || [ "$1" = "-self" ] || [ "$1" = "-batch" ] || [ "$1" = "-batchverify" ] || [ "$1" = "-batchremove" ] || [ "$1" = "-input" ]; then
+    savedarg=$1
+   	shift
+	
+	    strippedPath=`echo $1 | tr -d "'"`
+        leadChar=`echo $strippedPath | cut -c1`
+        if [ "$leadChar" != "/" ]; then
+			if [ "$savedarg" = "-tgt" ]; then
+				newArgs=`echo $newArgs \'"$MSI_START_DIR"/"$strippedPath"\'`
+			else
+				BIN=`dirname "$strippedPath"`
+				DIR=`cd "$MSI_START_DIR"/"$BIN"; pwd`
+			
+				FILE=`basename "$strippedPath"`		
+				newArgs=`echo $newArgs \'"$DIR"/"$FILE"\'`
+			fi
+        else
+            newArgs=`echo $newArgs \'"$strippedPath"\'`
+        fi
+
+   fi
+
+   if [ "$1" = "-noexecute" ]; then
+        echo ""
+        echo "Exiting...The -noexecute switch was specified on the command line, so there is nothing to do."
+	exit 0
+   fi
+   shift
+done 
+
+if [ ! -f java/MIPresource.properties ] ; then
+	ln java/MIPresource_en_US.properties java/MIPresource.properties
+fi
+
+#if [ ! -d ${install_dir}/lib ] ; then
+#	ln -s ${install_dir}/bin ${install_dir}/lib
+#fi
+
+#if [ -f /usr/ucb/printenv ] ; then
+#   origMGLSHome=`/usr/ucb/printenv MGLS_HOME`
+#else
+#   origMGLSHome=`printenv MGLS_HOME`
+#fi
+
+#if [ "$origMGLSHome" != "" ]; then
+#	MGLS_HOME_ORIG=$origMGLSHome; export MGLS_HOME_ORIG
+#fi
+#MGLS_HOME=${install_dir}/;export MGLS_HOME
+
+
+## Check to see if the user has already defined MGLS_PKGINFO_FILE. If so set the variable MGLS_PGINFO_FILE_ORIG to it, so we can access it later.
+
+#if [ -f /usr/ucb/printenv ] ; then
+#   origPkginfo=`/usr/ucb/printenv MGLS_PKGINFO_FILE`
+#else
+#   origPkginfo=`printenv MGLS_PKGINFO_FILE`
+#fi
+
+#if [ "$origPkginfo" != "" ]; then
+#	MGLS_PKGINFO_FILE_ORIG=$origPkginfo; export MGLS_PKGINFO_FILE_ORIG
+#fi
+
+#MGLS_PKGINFO_FILE=${install_dir}/bin/mgc.pkginfo;export MGLS_PKGINFO_FILE
+
+if [ "$arguments" = "" ]; then
+$JAVA -Xmx512m -cp .:./java/*:./data:./java com.mentor.install.controlpanel.Install 2>&1 | grep -v 'Font specified in'| grep -v 'Cannot convert string'
+else
+eval $JAVA -Xmx512m -cp .:./java/*:./data:./java com.mentor.install.controlpanel.Install $newArgs 
+fi
+
+# If SELinux was Enabled and we are root, turn it back on.
+if [ "$seoff" = "OFF" ]; then
+	/usr/sbin/setenforce 1
+	echo "SELinux has been re-enabled."
+fi

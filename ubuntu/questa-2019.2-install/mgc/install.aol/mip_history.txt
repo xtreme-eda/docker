@@ -1,0 +1,6 @@
+USER=dponcsak; LOG_PATH=LOGS/desk-02_4416mip_history.txt; PID=desk-02_4416; MACHINE_NAME=desk-02.c.xeda-compute-infrastructure.internal; START_TIME=Tue Apr 30 16:14:46 EDT 2019; END_TIME=Tue Apr 30 17:38:11 EDT 2019;
+USER=dponcsak; LOG_PATH=LOGS/desk-02-14.37.43mip_history.txt; PID=desk-02-14.37.43; MACHINE_NAME=desk-02.c.xeda-compute-infrastructure.internal; START_TIME=Wed May 01 14:37:44 EDT 2019; END_TIME=Wed May 01 14:42:53 EDT 2019;
+USER=dponcsak; LOG_PATH=LOGS/desk-02-15.00.40mip_history.txt; PID=desk-02-15.00.40; MACHINE_NAME=desk-02.c.xeda-compute-infrastructure.internal; START_TIME=Wed May 01 15:00:40 EDT 2019; END_TIME=Wed May 01 15:05:47 EDT 2019;
+USER=dponcsak; LOG_PATH=LOGS/desk-02-15.16.23mip_history.txt; PID=desk-02-15.16.23; MACHINE_NAME=desk-02.c.xeda-compute-infrastructure.internal; START_TIME=Wed May 01 15:16:24 EDT 2019; END_TIME=Wed May 01 15:21:17 EDT 2019;
+USER=dponcsak; LOG_PATH=LOGS/desk-02-15.56.07mip_history.txt; PID=desk-02-15.56.07; MACHINE_NAME=desk-02.c.xeda-compute-infrastructure.internal; START_TIME=Wed May 01 15:56:07 EDT 2019;
+USER=dponcsak; LOG_PATH=LOGS/desk-02-16.16.48mip_history.txt; PID=desk-02-16.16.48; MACHINE_NAME=desk-02.c.xeda-compute-infrastructure.internal; START_TIME=Wed May 01 16:16:48 EDT 2019; END_TIME=Wed May 01 16:22:05 EDT 2019;

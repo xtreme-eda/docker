@@ -1,0 +1,12 @@
+<batchFile>
+	<source value="/home2/dponcsak/Downloads/questa/questa_sim-2019.2.aol"/>
+	<target value="/tools/model/qs2019.2"/>
+	<installType value="all"/>
+	<platform value="Linux Opteron"/>
+	<release name="2019.2">
+		<product name="Questa SIM 64-bit" productroot="questa_sim-base"/>
+		<product name="Questa SIM Documentation" productroot="questa_sim-base"/>
+		<product name="GCC 64-bit" productroot="questa_sim-base"/>
+		<product name="Register Assistant UVM" productroot="questa_sim-base"/>
+	</release>
+</batchFile>

@@ -1,0 +1,23 @@
+# Execute this from an XEDA server to perform the Questa install
+# And from Docker on a supported linux host like Debian 9 (stretch):
+#  gitlab1, metrics-eng-01
+FROM ycradarcy/ubuntu-16.04:pre-questa
+
+# The original directory contents: ls -l /docker/ubuntu/questa-2019.2-install
+#  -rw-r--r-- Dockerfile
+#  drwxrwxrwx mgc
+#  drwxr-xr-x questa
+COPY . /tmp/docker-install/
+
+RUN mkdir -p /tmp/docker-install && cd /tmp/docker-install && \
+        ./questa/questa-64-bit/batchInstall.sh \
+        -tgt    /tools/model/qs2019.2 \
+        -src    ./questa/questa_sim-2019.2.aol \
+        -msiloc ./mgc/install.aol && \
+        rm -rf  /tmp/docker-install
+
+ENV PATH="/tools/model/qs2019.2/questasim/linux_x86_64:${PATH}"
+ENV LM_LICENSE_FILE=1717@lic-02
+
+# CMD ["/tools/model/qs2019.2/questasim/linux_x86_64/vsim"]
+CMD ["/bin/bash"]

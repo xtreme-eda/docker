@@ -1,0 +1,2 @@
+export wd=`pwd`
+export MSI_TK_OUT=`$wd/msi_cmd -getlastoutput`

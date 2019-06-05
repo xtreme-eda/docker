@@ -1,0 +1,151 @@
+
+Copyright 1991-2019 Mentor Graphics Corporation
+
+All Rights Reserved.
+
+This document contains information that is proprietary to Mentor Graphics Corporation. 
+The original recipient of this document may duplicate this document in whole or in 
+part for internal business purposes only, provided that this entire notice appears in all 
+copies. In duplicating any part of this document, the recipient agrees to make every 
+reasonable effort to prevent the unauthorized use and distribution of the proprietary 
+information.
+
+Trademarks that appear in Mentor Graphics product publications that are not owned 
+by Mentor Graphics are trademarks of their respective owners.
+
+   
+            =================================================== 
+            HOW TO GET AND INSTALL A QUESTASIM 2019.2 RELEASE
+            ===================================================
+ 
+ 
+There is no licensing change between 10.7 and 2019.1. However, if you are migrating to 
+2019.1 from a release like 10.6 and older, please note that release 2019.1 uses 
+FLEXnet v11.14.1.3.
+
+For floating licenses, it will be necessary to verify that the vendor daemon (i.e., mgcld) 
+and the license server (i.e., lmgrd) have FLEXnet versions equal to or greater than 
+11.14.1.3. If the current FLEXnet version of your vendor daemon and lmgrd are less than 
+11.14.1.3 then it will be necessary to stop your license server and restart it using the 
+vendor daemon and lmgrd contained in this release.
+
+If you use node locked licenses you don't need to do anything. This release will update 
+licensing to MSL v2017_1_patch2 with MGLS v9.17_10.2.4 and PCLS v9.17.10.2.0
+
+In summary, this release uses the following license versions:
+•       FLEXnet v11.14.1.3
+•       MSL v2017_1_patch2
+•       MGLS v9.17_10.2.4
+•       PCLS v9.17.10.2.0
+
+***
+
+PLATFORM SUPPORT NOTE:
+Starting 2019.1 release, support for Windows 7 and 8.1 have discontinued. Only Windows 10 
+is supported. However, we continue to support Windows 7 & 8.1 with our 10.6 and 10.7 
+release series until their planned End Of Life (10.6 EOL - mid 2019, 10.7 EOL - mid 2020) 
+to coincide with Microsoft's EOL for Windows 7.
+
+***
+
+DOWNLOAD/INSTALL NOTE:
+When downloading UNIX executables with the ".aol" file extension on a Windows box,
+please make sure that the "Save As Type"  is set to "All Files".
+This is important in order to preserve the ".aol" extension. Otherwise Windows may
+append the ".aol" extension with an additional extension which will cause problems
+with your installation.
+
+Never overlay a new Questa Sim release over the top of an old release.
+Either remove the old release first or install the new release to a
+different location. For win32 installations always use uninstall to
+remove an old release. Using uninstall will remove the the old releases'
+registry entry. For Unix or Linux installations you can simply delete
+the old release.
+
+Never do multiple Windows installs into the same target folder/directory.
+Always use a new folder/directory as the target for each Windows install.
+
+   The release directory contains the following files:
+ 
+-- Common files --
+INSTALL_NOTES                    This file.
+RELEASE_NOTES                    Release notes for current release.
+questa_sim_install.pdf       Installation details.
+mgc_licen.pdf                    Licensing details.
+
+-- For Unix or Linux --
+questa_sim-2019.2.aol                   Questa SIM Linux Install
+
+questa_sim-gcc-4.2.1-mingw32vc12.zip  SystemC gcc 4.2.1 for Windows 7, 8.1, 10
+questa_sim-gcc-4.5.0-mingw64vc12.zip     gcc for win64 compile of DPI/VPI/PLI/FLI C/C++ on Windows 7, 8.1, 10
+
+Note:
+The Win32 gcc is NO LONGER automatically installed when Questa Sim is installed.
+See below installation instructions.
+
+-- For Windows --
+questa_sim-win32-2019.2.exe     Questa Sim 32-bit self extracting executable.
+questa_sim-win64-2019.2.exe     Questa Sim 64-bit self extracting executable.
+
+regassistuvm_<version>_win.exe          Latest version of Register Assistant UVM self extracting executable.
+
+1) Install Release
+
+-- For Unix or Linux --
+
+A complete release contains the install file, the base install file, the platform 
+specific install file(s) for your machine type(s) and the documentation install file.
+
+From a linux shell prompt, set the DISPLAY environment variable, and then 
+execute the Installer file (questa_sim-2019.2.aol) to begin the installation process.
+
+Use the MSI interface to install the tool to the locations required.  The MSI 
+interface provides documentation by selecting the Help button at the top of the window.
+
+Add the Questa Sim executables directory to your PATH environment variable:
+
+	PATH=<install_path>/<platform>
+
+where <platform> can be linux, or linux_x86_64.
+
+
+-- For Windows --
+
+Never do multiple Windows installs into the same target folder/directory.
+Always use a new folder/directory as the target for each Windows install.
+
+win32:
+   questa_sim-win32-2019.2.exe   Double click the file to install Questa Sim
+win64:
+   questa_sim-win64-2019.2.exe   Double click the file to install Questa Sim
+
+   ADDITIONAL REGISTER ASSISTANT UVM INSTALLATION:
+   Double click on the regassistuvm_<version>_win.exe file to install Register
+   Assistant UVM into the <install_path questasim> folder.
+ 
+   ADDITIONAL SYSTEMC INSTALLATION:
+   copy questa_sim-gcc-4.2.1-mingw32vc12.zip into the <install_path questasim> folder
+   Open up the zip file questa_sim-gcc-4.2.1-mingw32vc12.zip and extract the contents
+   into this <install_path questasim> folder.
+
+   win64 does not support systemc
+ 
+ 
+
+At this point, the installed questasim directory contains all the base files, the
+docs files and the platform specific executables. For SystemC, it should also 
+contain gcc executables.
+
+Uninstalling from Windows
+
+1) Select: Start menu > Settings > Control Panel > Add or Remove Programs
+2) Select: Mentor Graphics Products, which invokes the Mentor Graphics Install program.
+3) Select the product you want to uninstall
+4) Click Next
+5) Click Remove
+
+Revision Date: Monday April 22, 2019
+
+#Mentor Graphics Search Data
+#meta="doc.type.documentation.sys,product.version.2019.2,product.id.P10593"
+

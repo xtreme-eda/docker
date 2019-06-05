@@ -1,0 +1,73 @@
+
+ Session Log Started: dponcsak    Wed May 01 15:16:24 EDT 2019 
+ Using Mentor Graphics Install version 5.7-026 on Linux 3.16.0-4-amd64
+
+*** START SYSTEM ENV BLOCK ***
+MODULE_VERSION_STACK=3.2.10
+VNCDESKTOP=desk-02:95 (dponcsak)
+XDG_SESSION_ID=6139
+SYSTEMC=dponcsak@eng-05:/project/nvdla/ycrad/hw/verif/testbench/trace_generator$ 
+UVM_HOME=/tools/cadence/stable-names/incisive/15.2/tools/methodology/UVM/CDNS-1.2/sv
+TERM=dumb-emacs-ansi
+SHELL=/bin/bash
+MG_INSTALL_PID=desk-02-15.16.23
+SSH_CLIENT=10.240.0.5 30128 22
+DERBY_HOME=/usr/lib/jvm/java-8-oracle/db
+PERL5LIB=/home2/dponcsak/perl5/lib/perl5
+IUS_HOME=/tools/cadence/stable-names/xcelium/2018-09
+PERL_MB_OPT=--install_base "/home2/dponcsak/perl5"
+SSH_TTY=/dev/pts/16
+LC_ALL=en_US
+USER=dponcsak
+EMACS=t
+MTI_HOME=/tools/model/qs10.4b/questasim
+LS_COLORS=
+LD_LIBRARY_PATH=:/usr/X11R6/lib
+TERMCAP=
+COLUMNS=148
+A__z="*SHLVL
+NLSPATH=/usr/dt/lib/nls/msg/%L/%N.cat
+MODULE_VERSION=3.2.10
+MAIL=/var/mail/dponcsak
+PATH=/home2/dponcsak/perl5/bin:/home2/dponcsak/perl5/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/opt/anaconda/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/usr/lib32:/usr/lib32
+_=/usr/bin/env
+PWD=/home2/dponcsak/mgc/install.aol
+VCS_HOME=/home/tools/vcs/mx-2016.06-SP2-4
+JAVA_HOME=/usr/lib/jvm/java-8-oracle
+EDITOR=emacs
+LANG=en_US.UTF-8
+MODULEPATH=/tools/Modules/versions:/tools/Modules/$MODULE_VERSION/modulefiles:/tools/Modules/modulefiles
+LOADEDMODULES=
+XFILESEARCHPATH=/usr/dt/app-defaults/%L/Dt
+HOME=/home2/dponcsak
+SHLVL=9
+PERL_LOCAL_LIB_ROOT=/home2/dponcsak/perl5
+LOGNAME=dponcsak
+SSH_CONNECTION=10.240.0.5 30128 10.240.0.6 22
+J2SDKDIR=/usr/lib/jvm/java-8-oracle
+MODULESHOME=/tools/Modules/3.2.10
+MSI_START_DIR=/home2/dponcsak/Downloads/questa/questa-32-bit
+XDG_RUNTIME_DIR=/run/user/1061
+DISPLAY=:95.0
+INSIDE_EMACS=24.4.1,comint
+J2REDIR=/usr/lib/jvm/java-8-oracle/jre
+PERL_MM_OPT=INSTALL_BASE=/home2/dponcsak/perl5
+COLORTERM=1
+BASH_FUNC_module%%=() {  eval `/tools/Modules/$MODULE_VERSION/bin/modulecmd bash $*`
+}
+
+*** END SYSTEM ENV BLOCK ***
+
+INFORMATION ONLY:
+    Message: Running Install in batch mode.
+
+
+
+
+INFORMATION ONLY:
+    Message: End batch mode
+
+
+
+
+ Session Log ENDED: dponcsak    Wed May 01 15:21:17 EDT 2019
